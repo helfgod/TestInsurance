@@ -1,45 +1,96 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.Data.Objects;
+using System.Data.SqlClient;
+using System.Linq;
 using System.Linq.Expressions;
 
 
 namespace Infrastructure.Data.Interfaces
 {
-    public interface IRepository<E>
+    public interface IRepository
     {
-        string KeyProperty { get; set; }
+        /// <summary>
+        /// Gets all objects from database
+        /// </summary>
+        /// <returns></returns>
+        IQueryable<T> All<T>() where T : class;
+        /// <summary>
+        /// Gets objects from database by filter.
+        /// </summary>
+        /// <param name="predicate">Specified a filter</param>
+        /// <returns></returns>
+        IQueryable<T> Filter<T>(Expression<Func<T, bool>> predicate) where T : class;
 
-        void Add(E entity);
-        void AddOrAttach(E entity);
-        void DeleteRelatedEntries(E entity);
-        void DeleteRelatedEntries
-        (E entity, ObservableCollection<string> keyListOfIgnoreEntites);
-        void Delete(E entity);
+        /// <summary>
+        /// Gets objects from database with filting and paging.
+        /// </summary>
+        /// <typeparam name="Key"></typeparam>
+        /// <param name="filter">Specified a filter</param>
+        /// <param name="total">Returns the total records count of the filter.</param>
+        /// <param name="index">Specified the page index.</param>
+        /// <param name="size">Specified the page size</param>
+        /// <returns></returns>
+        IQueryable<T> Filter<T>(Expression<Func<T, bool>> filter, out int total, int index = 0, int size = 50) where T : class;
 
-        ObjectQuery<E> DoQuery();
-        ObjectQuery<E> DoQuery(ISpecification<E> where);
-        ObjectQuery<E> DoQuery(int maximumRows, int startRowIndex);
-        ObjectQuery<E> DoQuery(Expression<Func<E, object>> sortExpression);
-        ObjectQuery<E> DoQuery(Expression<Func<E, object>> sortExpression,
-                    int maximumRows, int startRowIndex);
+        /// <summary>
+        /// Gets the object(s) is exists in database by specified filter.
+        /// </summary>
+        /// <param name="predicate">Specified the filter expression</param>
+        /// <returns></returns>
+        bool Contains<T>(Expression<Func<T, bool>> predicate) where T : class;
 
-        IList<E> SelectAll(string entitySetName);
-        IList<E> SelectAll();
-        IList<E> SelectAll(string entitySetName, ISpecification<E> where);
-        IList<E> SelectAll(ISpecification<E> where);
-        IList<E> SelectAll(int maximumRows, int startRowIndex);
-        IList<E> SelectAll(Expression<Func<E, object>> sortExpression);
-        IList<E> SelectAll(Expression<Func<E, object>> sortExpression,
-                    int maximumRows, int startRowIndex);
+        /// <summary>
+        /// Find object by keys.
+        /// </summary>
+        /// <param name="keys">Specified the search keys.</param>
+        /// <returns></returns>
+        T Find<T>(params object[] keys) where T : class;
 
-        E SelectByKey(string Key);
+        /// <summary>
+        /// Find object by specified expression.
+        /// </summary>
+        /// <param name="predicate"></param>
+        /// <returns></returns>
+        T Find<T>(Expression<Func<T, bool>> predicate) where T : class;
 
-        bool TrySameValueExist(string fieldName, object fieldValue, string key);
-        bool TryEntity(ISpecification<E> selectSpec);
+        /// <summary>
+        /// Create a new object to database.
+        /// </summary>
+        /// <param name="t">Specified a new object to create.</param>
+        /// <returns></returns>
+        T Create<T>(T t) where T : class;
 
-        int GetCount();
-        int GetCount(ISpecification<E> selectSpec);
+        /// <summary>
+        /// Delete the object from database.
+        /// </summary>
+        /// <param name="t">Specified a existing object to delete.</param>
+        int Delete<T>(T t) where T : class;
+
+        /// <summary>
+        /// Delete objects from database by specified filter expression.
+        /// </summary>
+        /// <param name="predicate"></param>
+        /// <returns></returns>
+        int Delete<T>(Expression<Func<T, bool>> predicate) where T : class;
+
+        /// <summary>
+        /// Update object changes and save to database.
+        /// </summary>
+        /// <param name="t">Specified the object to save.</param>
+        /// <returns></returns>
+        int Update<T>(T t) where T : class;
+
+        /// <summary>
+        /// Select Single Item by specified expression.
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="expression"></param>
+        /// <returns></returns>
+        T Single<T>(Expression<Func<T, bool>> expression) where T : class;
+
+        void SaveChanges();
+
+        void ExecuteProcedure(String procedureCommand, params SqlParameter[] sqlParams);
+
+
     }
 }

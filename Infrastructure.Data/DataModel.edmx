@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="DataModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2008" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+      <Schema Namespace="InsuranceTestModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012.Azure" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="CLIENTE">
           <Key>
             <PropertyRef Name="ID_CLI" />
@@ -98,7 +98,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <EntityContainer Name="DataModelStoreContainer">
+        <EntityContainer Name="InsuranceTestModelStoreContainer">
           <EntitySet Name="CLIENTE" EntityType="Self.CLIENTE" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="LOG_POLIZA_CLIENTE" EntityType="Self.LOG_POLIZA_CLIENTE" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="POLIZA" EntityType="Self.POLIZA" Schema="dbo" store:Type="Tables" />
@@ -125,7 +125,7 @@
     </edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
-      <Schema Namespace="DataModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+      <Schema Namespace="InsuranceTestModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
         <EntityType Name="CLIENTE">
           <Key>
             <PropertyRef Name="ID_CLI" />
@@ -255,9 +255,9 @@
     <!-- C-S mapping content -->
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
-        <EntityContainerMapping StorageEntityContainer="DataModelStoreContainer" CdmEntityContainer="InsuranceTestEntities">
+        <EntityContainerMapping StorageEntityContainer="InsuranceTestModelStoreContainer" CdmEntityContainer="InsuranceTestEntities">
           <EntitySetMapping Name="CLIENTEs">
-            <EntityTypeMapping TypeName="DataModel.CLIENTE">
+            <EntityTypeMapping TypeName="InsuranceTestModel.CLIENTE">
               <MappingFragment StoreEntitySet="CLIENTE">
                 <ScalarProperty Name="ID_CLI" ColumnName="ID_CLI" />
                 <ScalarProperty Name="NOMBRES" ColumnName="NOMBRES" />
@@ -267,7 +267,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="LOG_POLIZA_CLIENTE">
-            <EntityTypeMapping TypeName="DataModel.LOG_POLIZA_CLIENTE">
+            <EntityTypeMapping TypeName="InsuranceTestModel.LOG_POLIZA_CLIENTE">
               <MappingFragment StoreEntitySet="LOG_POLIZA_CLIENTE">
                 <ScalarProperty Name="ID_LPC" ColumnName="ID_LPC" />
                 <ScalarProperty Name="ID_POL" ColumnName="ID_POL" />
@@ -278,7 +278,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="POLIZAs">
-            <EntityTypeMapping TypeName="DataModel.POLIZA">
+            <EntityTypeMapping TypeName="InsuranceTestModel.POLIZA">
               <MappingFragment StoreEntitySet="POLIZA">
                 <ScalarProperty Name="ID_POL" ColumnName="ID_POL" />
                 <ScalarProperty Name="ID_TIPO_CUBRIMIENTO" ColumnName="ID_TIPO_CUBRIMIENTO" />
@@ -290,7 +290,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="TIPO_CUBRIMIENTO">
-            <EntityTypeMapping TypeName="DataModel.TIPO_CUBRIMIENTO">
+            <EntityTypeMapping TypeName="InsuranceTestModel.TIPO_CUBRIMIENTO">
               <MappingFragment StoreEntitySet="TIPO_CUBRIMIENTO">
                 <ScalarProperty Name="ID_TIPO_CUBRIMIENTO" ColumnName="ID_TIPO_CUBRIMIENTO" />
                 <ScalarProperty Name="TC_NOMBRE" ColumnName="TC_NOMBRE" />
@@ -299,7 +299,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="TIPO_RIESGO">
-            <EntityTypeMapping TypeName="DataModel.TIPO_RIESGO">
+            <EntityTypeMapping TypeName="InsuranceTestModel.TIPO_RIESGO">
               <MappingFragment StoreEntitySet="TIPO_RIESGO">
                 <ScalarProperty Name="ID_TIPO_RIESGO" ColumnName="ID_TIPO_RIESGO" />
                 <ScalarProperty Name="NOMBRE" ColumnName="NOMBRE" />
@@ -322,7 +322,7 @@
         <DesignerProperty Name="ValidateOnBuild" Value="true" />
         <DesignerProperty Name="EnablePluralization" Value="true" />
         <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
-        <DesignerProperty Name="UseLegacyProvider" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
         <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
       </DesignerInfoPropertySet>
     </Options>

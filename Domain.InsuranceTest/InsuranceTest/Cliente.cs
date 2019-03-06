@@ -1,11 +1,4 @@
-﻿using Infrastructure.Data;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Domain.InsuranceTest.InsuranceTest
+﻿namespace Domain.InsuranceTest.InsuranceTest
 {
     public class Cliente
     {
@@ -15,11 +8,11 @@ namespace Domain.InsuranceTest.InsuranceTest
         public string Telefono { get; set; } // TELEFONO (length: 50)
 
         // Reverse navigation
-        public virtual System.Collections.Generic.ICollection<LOG_POLIZA_CLIENTE> LogPolizaClientes { get; set; } // LOG_POLIZA_CLIENTE.FK_LOG_POLIZA_CLIENTE_Cliente_ID_CLI
+        public virtual System.Collections.Generic.ICollection<LogPolizaCliente> LogPolizaClientes { get; set; } // LOG_POLIZA_CLIENTE.FK_LOG_POLIZA_CLIENTE_Cliente_ID_CLI
 
         public Cliente()
         {
-            LogPolizaClientes = new System.Collections.Generic.List<LOG_POLIZA_CLIENTE>();
+            LogPolizaClientes = new System.Collections.Generic.List<LogPolizaCliente>();
         }
     }
 }

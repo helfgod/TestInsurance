@@ -4,16 +4,16 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="04f8469af93e4c2fa8a375c7bbe371c9" Name="Diagram1">
-        <EntityTypeShape EntityType="DataModel.CLIENTE" Width="1.5" PointX="3" PointY="5.375" IsExpanded="true" />
-        <EntityTypeShape EntityType="DataModel.LOG_POLIZA_CLIENTE" Width="1.5" PointX="5.25" PointY="1.125" IsExpanded="true" />
-        <EntityTypeShape EntityType="DataModel.POLIZA" Width="1.5" PointX="3" PointY="1" IsExpanded="true" />
-        <EntityTypeShape EntityType="DataModel.TIPO_CUBRIMIENTO" Width="1.5" PointX="0.75" PointY="1.5" IsExpanded="true" />
-        <EntityTypeShape EntityType="DataModel.TIPO_RIESGO" Width="1.5" PointX="0.75" PointY="5.5" IsExpanded="true" />
-        <AssociationConnector Association="DataModel.FK_LOG_POLIZA_CLIENTE_Cliente_ID_CLI" ManuallyRouted="false" />
-        <AssociationConnector Association="DataModel.FK_LOG_POLIZA_CLIENTE_POLIZA_ID_POL" ManuallyRouted="false" />
-        <AssociationConnector Association="DataModel.FK_POLIZA_TIPO_CUBRIMIENTO_ID_TIPO_CUBRIMIENTO" ManuallyRouted="false" />
-        <AssociationConnector Association="DataModel.FK_POLIZA_TIPO_RIESGO_ID_TIPO_RIESGO" ManuallyRouted="false" />
+      <Diagram DiagramId="496b291b62a64b498aca3a7c76cb311e" Name="Diagram1">
+        <EntityTypeShape EntityType="InsuranceTestModel.CLIENTE" Width="1.5" PointX="3" PointY="5.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="InsuranceTestModel.LOG_POLIZA_CLIENTE" Width="1.5" PointX="5.25" PointY="1.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="InsuranceTestModel.POLIZA" Width="1.5" PointX="3" PointY="1" IsExpanded="true" />
+        <EntityTypeShape EntityType="InsuranceTestModel.TIPO_CUBRIMIENTO" Width="1.5" PointX="0.75" PointY="1.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="InsuranceTestModel.TIPO_RIESGO" Width="1.5" PointX="0.75" PointY="5.5" IsExpanded="true" />
+        <AssociationConnector Association="InsuranceTestModel.FK_LOG_POLIZA_CLIENTE_Cliente_ID_CLI" ManuallyRouted="false" />
+        <AssociationConnector Association="InsuranceTestModel.FK_LOG_POLIZA_CLIENTE_POLIZA_ID_POL" ManuallyRouted="false" />
+        <AssociationConnector Association="InsuranceTestModel.FK_POLIZA_TIPO_CUBRIMIENTO_ID_TIPO_CUBRIMIENTO" ManuallyRouted="false" />
+        <AssociationConnector Association="InsuranceTestModel.FK_POLIZA_TIPO_RIESGO_ID_TIPO_RIESGO" ManuallyRouted="false" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>
