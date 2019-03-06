@@ -24,12 +24,13 @@ namespace Infrastructure.Data
         public int ID_TIPO_CUBRIMIENTO { get; set; }
         public int ID_TIPO_RIESGO { get; set; }
         public long PRECIO { get; set; }
-        public string TIPO_RIESGO { get; set; }
         public long PERIODO_COBERTURA { get; set; }
+        public string NOMBRE { get; set; }
+        public string DESCRIPCION { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<LOG_POLIZA_CLIENTE> LOG_POLIZA_CLIENTE { get; set; }
         public virtual TIPO_CUBRIMIENTO TIPO_CUBRIMIENTO { get; set; }
-        public virtual TIPO_RIESGO TIPO_RIESGO1 { get; set; }
+        public virtual TIPO_RIESGO TIPO_RIESGO { get; set; }
     }
 }

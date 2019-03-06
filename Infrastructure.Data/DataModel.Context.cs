@@ -27,8 +27,8 @@ namespace Infrastructure.Data
     
         public virtual DbSet<CLIENTE> CLIENTEs { get; set; }
         public virtual DbSet<LOG_POLIZA_CLIENTE> LOG_POLIZA_CLIENTE { get; set; }
-        public virtual DbSet<POLIZA> POLIZAs { get; set; }
         public virtual DbSet<TIPO_CUBRIMIENTO> TIPO_CUBRIMIENTO { get; set; }
         public virtual DbSet<TIPO_RIESGO> TIPO_RIESGO { get; set; }
+        public virtual DbSet<POLIZA> POLIZAs { get; set; }
     }
 }

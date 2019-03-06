@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="InsuranceTestModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012.Azure" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="InsuranceTestModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012.Azure" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="CLIENTE">
           <Key>
             <PropertyRef Name="ID_CLI" />
@@ -32,8 +32,9 @@
           <Property Name="ID_TIPO_CUBRIMIENTO" Type="int" Nullable="false" />
           <Property Name="ID_TIPO_RIESGO" Type="int" Nullable="false" />
           <Property Name="PRECIO" Type="bigint" Nullable="false" />
-          <Property Name="TIPO_RIESGO" Type="varchar" MaxLength="50" Nullable="false" />
           <Property Name="PERIODO_COBERTURA" Type="bigint" Nullable="false" />
+          <Property Name="NOMBRE" Type="varchar" MaxLength="400" Nullable="false" />
+          <Property Name="DESCRIPCION" Type="varchar(max)" Nullable="false" />
         </EntityType>
         <EntityType Name="TIPO_CUBRIMIENTO">
           <Key>
@@ -48,7 +49,7 @@
             <PropertyRef Name="ID_TIPO_RIESGO" />
           </Key>
           <Property Name="ID_TIPO_RIESGO" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="NOMBRE" Type="varchar(max)" Nullable="false" />
+          <Property Name="TR_NOMBRE" Type="varchar(max)" Nullable="false" />
         </EntityType>
         <Association Name="FK_LOG_POLIZA_CLIENTE_Cliente_ID_CLI">
           <End Role="CLIENTE" Type="Self.CLIENTE" Multiplicity="1" />
@@ -121,8 +122,7 @@
             <End Role="POLIZA" EntitySet="POLIZA" />
           </AssociationSet>
         </EntityContainer>
-      </Schema>
-    </edmx:StorageModels>
+      </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="InsuranceTestModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -146,21 +146,7 @@
           <Property Name="FECHA_PROCESO" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="ACTIVA" Type="Boolean" Nullable="false" />
           <NavigationProperty Name="CLIENTE" Relationship="Self.FK_LOG_POLIZA_CLIENTE_Cliente_ID_CLI" FromRole="LOG_POLIZA_CLIENTE" ToRole="CLIENTE" />
-          <NavigationProperty Name="POLIZA" Relationship="Self.FK_LOG_POLIZA_CLIENTE_POLIZA_ID_POL" FromRole="LOG_POLIZA_CLIENTE" ToRole="POLIZA" />
-        </EntityType>
-        <EntityType Name="POLIZA">
-          <Key>
-            <PropertyRef Name="ID_POL" />
-          </Key>
-          <Property Name="ID_POL" Type="Guid" Nullable="false" />
-          <Property Name="ID_TIPO_CUBRIMIENTO" Type="Int32" Nullable="false" />
-          <Property Name="ID_TIPO_RIESGO" Type="Int32" Nullable="false" />
-          <Property Name="PRECIO" Type="Int64" Nullable="false" />
-          <Property Name="TIPO_RIESGO" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="PERIODO_COBERTURA" Type="Int64" Nullable="false" />
-          <NavigationProperty Name="LOG_POLIZA_CLIENTE" Relationship="Self.FK_LOG_POLIZA_CLIENTE_POLIZA_ID_POL" FromRole="POLIZA" ToRole="LOG_POLIZA_CLIENTE" />
-          <NavigationProperty Name="TIPO_CUBRIMIENTO" Relationship="Self.FK_POLIZA_TIPO_CUBRIMIENTO_ID_TIPO_CUBRIMIENTO" FromRole="POLIZA" ToRole="TIPO_CUBRIMIENTO" />
-          <NavigationProperty Name="TIPO_RIESGO1" Relationship="Self.FK_POLIZA_TIPO_RIESGO_ID_TIPO_RIESGO" FromRole="POLIZA" ToRole="TIPO_RIESGO" />
+          <NavigationProperty Name="POLIZA" Relationship="InsuranceTestModel.FK_LOG_POLIZA_CLIENTE_POLIZA_ID_POL" FromRole="LOG_POLIZA_CLIENTE" ToRole="POLIZA" />
         </EntityType>
         <EntityType Name="TIPO_CUBRIMIENTO">
           <Key>
@@ -169,7 +155,7 @@
           <Property Name="ID_TIPO_CUBRIMIENTO" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="TC_NOMBRE" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="TC_COBERTURA" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
-          <NavigationProperty Name="POLIZAs" Relationship="Self.FK_POLIZA_TIPO_CUBRIMIENTO_ID_TIPO_CUBRIMIENTO" FromRole="TIPO_CUBRIMIENTO" ToRole="POLIZA" />
+          <NavigationProperty Name="POLIZAs" Relationship="InsuranceTestModel.FK_POLIZA_TIPO_CUBRIMIENTO_ID_TIPO_CUBRIMIENTO" FromRole="TIPO_CUBRIMIENTO" ToRole="POLIZA" />
         </EntityType>
         <EntityType Name="TIPO_RIESGO">
           <Key>
@@ -177,7 +163,8 @@
           </Key>
           <Property Name="ID_TIPO_RIESGO" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="NOMBRE" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" Nullable="false" />
-          <NavigationProperty Name="POLIZAs" Relationship="Self.FK_POLIZA_TIPO_RIESGO_ID_TIPO_RIESGO" FromRole="TIPO_RIESGO" ToRole="POLIZA" />
+          <Property Name="TR_NOMBRE" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="POLIZAs" Relationship="InsuranceTestModel.FK_POLIZA_TIPO_RIESGO_ID_TIPO_RIESGO" FromRole="TIPO_RIESGO" ToRole="POLIZA" />
         </EntityType>
         <Association Name="FK_LOG_POLIZA_CLIENTE_Cliente_ID_CLI">
           <End Role="CLIENTE" Type="Self.CLIENTE" Multiplicity="1" />
@@ -191,9 +178,47 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <EntityContainer Name="InsuranceTestEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="CLIENTEs" EntityType="Self.CLIENTE" />
+          <EntitySet Name="LOG_POLIZA_CLIENTE" EntityType="Self.LOG_POLIZA_CLIENTE" />
+          <EntitySet Name="TIPO_CUBRIMIENTO" EntityType="Self.TIPO_CUBRIMIENTO" />
+          <EntitySet Name="TIPO_RIESGO" EntityType="Self.TIPO_RIESGO" />
+          <AssociationSet Name="FK_LOG_POLIZA_CLIENTE_Cliente_ID_CLI" Association="Self.FK_LOG_POLIZA_CLIENTE_Cliente_ID_CLI">
+            <End Role="CLIENTE" EntitySet="CLIENTEs" />
+            <End Role="LOG_POLIZA_CLIENTE" EntitySet="LOG_POLIZA_CLIENTE" />
+          </AssociationSet>
+          <EntitySet Name="POLIZAs" EntityType="InsuranceTestModel.POLIZA" />
+          <AssociationSet Name="FK_LOG_POLIZA_CLIENTE_POLIZA_ID_POL" Association="InsuranceTestModel.FK_LOG_POLIZA_CLIENTE_POLIZA_ID_POL">
+            <End Role="POLIZA" EntitySet="POLIZAs" />
+            <End Role="LOG_POLIZA_CLIENTE" EntitySet="LOG_POLIZA_CLIENTE" />
+          </AssociationSet>
+          <AssociationSet Name="FK_POLIZA_TIPO_CUBRIMIENTO_ID_TIPO_CUBRIMIENTO" Association="InsuranceTestModel.FK_POLIZA_TIPO_CUBRIMIENTO_ID_TIPO_CUBRIMIENTO">
+            <End Role="TIPO_CUBRIMIENTO" EntitySet="TIPO_CUBRIMIENTO" />
+            <End Role="POLIZA" EntitySet="POLIZAs" />
+          </AssociationSet>
+          <AssociationSet Name="FK_POLIZA_TIPO_RIESGO_ID_TIPO_RIESGO" Association="InsuranceTestModel.FK_POLIZA_TIPO_RIESGO_ID_TIPO_RIESGO">
+            <End Role="TIPO_RIESGO" EntitySet="TIPO_RIESGO" />
+            <End Role="POLIZA" EntitySet="POLIZAs" />
+          </AssociationSet>
+          </EntityContainer>
+        <EntityType Name="POLIZA">
+          <Key>
+            <PropertyRef Name="ID_POL" />
+          </Key>
+          <Property Name="ID_POL" Type="Guid" Nullable="false" />
+          <Property Name="ID_TIPO_CUBRIMIENTO" Type="Int32" Nullable="false" />
+          <Property Name="ID_TIPO_RIESGO" Type="Int32" Nullable="false" />
+          <Property Name="PRECIO" Type="Int64" Nullable="false" />
+          <Property Name="PERIODO_COBERTURA" Type="Int64" Nullable="false" />
+          <Property Name="NOMBRE" Type="String" Nullable="false" MaxLength="400" FixedLength="false" Unicode="false" />
+          <Property Name="DESCRIPCION" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="LOG_POLIZA_CLIENTE" Relationship="InsuranceTestModel.FK_LOG_POLIZA_CLIENTE_POLIZA_ID_POL" FromRole="POLIZA" ToRole="LOG_POLIZA_CLIENTE" />
+          <NavigationProperty Name="TIPO_CUBRIMIENTO" Relationship="InsuranceTestModel.FK_POLIZA_TIPO_CUBRIMIENTO_ID_TIPO_CUBRIMIENTO" FromRole="POLIZA" ToRole="TIPO_CUBRIMIENTO" />
+          <NavigationProperty Name="TIPO_RIESGO" Relationship="InsuranceTestModel.FK_POLIZA_TIPO_RIESGO_ID_TIPO_RIESGO" FromRole="POLIZA" ToRole="TIPO_RIESGO" />
+        </EntityType>
         <Association Name="FK_LOG_POLIZA_CLIENTE_POLIZA_ID_POL">
-          <End Role="POLIZA" Type="Self.POLIZA" Multiplicity="1" />
-          <End Role="LOG_POLIZA_CLIENTE" Type="Self.LOG_POLIZA_CLIENTE" Multiplicity="*" />
+          <End Type="InsuranceTestModel.POLIZA" Role="POLIZA" Multiplicity="1" />
+          <End Type="InsuranceTestModel.LOG_POLIZA_CLIENTE" Role="LOG_POLIZA_CLIENTE" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="POLIZA">
               <PropertyRef Name="ID_POL" />
@@ -204,8 +229,8 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_POLIZA_TIPO_CUBRIMIENTO_ID_TIPO_CUBRIMIENTO">
-          <End Role="TIPO_CUBRIMIENTO" Type="Self.TIPO_CUBRIMIENTO" Multiplicity="1" />
-          <End Role="POLIZA" Type="Self.POLIZA" Multiplicity="*" />
+          <End Type="InsuranceTestModel.TIPO_CUBRIMIENTO" Role="TIPO_CUBRIMIENTO" Multiplicity="1" />
+          <End Type="InsuranceTestModel.POLIZA" Role="POLIZA" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="TIPO_CUBRIMIENTO">
               <PropertyRef Name="ID_TIPO_CUBRIMIENTO" />
@@ -216,8 +241,8 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_POLIZA_TIPO_RIESGO_ID_TIPO_RIESGO">
-          <End Role="TIPO_RIESGO" Type="Self.TIPO_RIESGO" Multiplicity="1" />
-          <End Role="POLIZA" Type="Self.POLIZA" Multiplicity="*" />
+          <End Type="InsuranceTestModel.TIPO_RIESGO" Role="TIPO_RIESGO" Multiplicity="1" />
+          <End Type="InsuranceTestModel.POLIZA" Role="POLIZA" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="TIPO_RIESGO">
               <PropertyRef Name="ID_TIPO_RIESGO" />
@@ -227,29 +252,6 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <EntityContainer Name="InsuranceTestEntities" annotation:LazyLoadingEnabled="true">
-          <EntitySet Name="CLIENTEs" EntityType="Self.CLIENTE" />
-          <EntitySet Name="LOG_POLIZA_CLIENTE" EntityType="Self.LOG_POLIZA_CLIENTE" />
-          <EntitySet Name="POLIZAs" EntityType="Self.POLIZA" />
-          <EntitySet Name="TIPO_CUBRIMIENTO" EntityType="Self.TIPO_CUBRIMIENTO" />
-          <EntitySet Name="TIPO_RIESGO" EntityType="Self.TIPO_RIESGO" />
-          <AssociationSet Name="FK_LOG_POLIZA_CLIENTE_Cliente_ID_CLI" Association="Self.FK_LOG_POLIZA_CLIENTE_Cliente_ID_CLI">
-            <End Role="CLIENTE" EntitySet="CLIENTEs" />
-            <End Role="LOG_POLIZA_CLIENTE" EntitySet="LOG_POLIZA_CLIENTE" />
-          </AssociationSet>
-          <AssociationSet Name="FK_LOG_POLIZA_CLIENTE_POLIZA_ID_POL" Association="Self.FK_LOG_POLIZA_CLIENTE_POLIZA_ID_POL">
-            <End Role="POLIZA" EntitySet="POLIZAs" />
-            <End Role="LOG_POLIZA_CLIENTE" EntitySet="LOG_POLIZA_CLIENTE" />
-          </AssociationSet>
-          <AssociationSet Name="FK_POLIZA_TIPO_CUBRIMIENTO_ID_TIPO_CUBRIMIENTO" Association="Self.FK_POLIZA_TIPO_CUBRIMIENTO_ID_TIPO_CUBRIMIENTO">
-            <End Role="TIPO_CUBRIMIENTO" EntitySet="TIPO_CUBRIMIENTO" />
-            <End Role="POLIZA" EntitySet="POLIZAs" />
-          </AssociationSet>
-          <AssociationSet Name="FK_POLIZA_TIPO_RIESGO_ID_TIPO_RIESGO" Association="Self.FK_POLIZA_TIPO_RIESGO_ID_TIPO_RIESGO">
-            <End Role="TIPO_RIESGO" EntitySet="TIPO_RIESGO" />
-            <End Role="POLIZA" EntitySet="POLIZAs" />
-          </AssociationSet>
-        </EntityContainer>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -277,18 +279,6 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="POLIZAs">
-            <EntityTypeMapping TypeName="InsuranceTestModel.POLIZA">
-              <MappingFragment StoreEntitySet="POLIZA">
-                <ScalarProperty Name="ID_POL" ColumnName="ID_POL" />
-                <ScalarProperty Name="ID_TIPO_CUBRIMIENTO" ColumnName="ID_TIPO_CUBRIMIENTO" />
-                <ScalarProperty Name="ID_TIPO_RIESGO" ColumnName="ID_TIPO_RIESGO" />
-                <ScalarProperty Name="PRECIO" ColumnName="PRECIO" />
-                <ScalarProperty Name="TIPO_RIESGO" ColumnName="TIPO_RIESGO" />
-                <ScalarProperty Name="PERIODO_COBERTURA" ColumnName="PERIODO_COBERTURA" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="TIPO_CUBRIMIENTO">
             <EntityTypeMapping TypeName="InsuranceTestModel.TIPO_CUBRIMIENTO">
               <MappingFragment StoreEntitySet="TIPO_CUBRIMIENTO">
@@ -301,8 +291,21 @@
           <EntitySetMapping Name="TIPO_RIESGO">
             <EntityTypeMapping TypeName="InsuranceTestModel.TIPO_RIESGO">
               <MappingFragment StoreEntitySet="TIPO_RIESGO">
+                <ScalarProperty Name="TR_NOMBRE" ColumnName="TR_NOMBRE" />
                 <ScalarProperty Name="ID_TIPO_RIESGO" ColumnName="ID_TIPO_RIESGO" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="POLIZAs">
+            <EntityTypeMapping TypeName="InsuranceTestModel.POLIZA">
+              <MappingFragment StoreEntitySet="POLIZA">
+                <ScalarProperty Name="DESCRIPCION" ColumnName="DESCRIPCION" />
                 <ScalarProperty Name="NOMBRE" ColumnName="NOMBRE" />
+                <ScalarProperty Name="PERIODO_COBERTURA" ColumnName="PERIODO_COBERTURA" />
+                <ScalarProperty Name="PRECIO" ColumnName="PRECIO" />
+                <ScalarProperty Name="ID_TIPO_RIESGO" ColumnName="ID_TIPO_RIESGO" />
+                <ScalarProperty Name="ID_TIPO_CUBRIMIENTO" ColumnName="ID_TIPO_CUBRIMIENTO" />
+                <ScalarProperty Name="ID_POL" ColumnName="ID_POL" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

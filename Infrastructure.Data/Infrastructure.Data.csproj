@@ -74,10 +74,8 @@
     <Compile Include="Helper\Utility.cs" />
     <Compile Include="Implementations\Entity Framework\Repository.cs" />
     <Compile Include="Implementations\Entity Framework\Specification.cs" />
-    <Compile Include="Implementations\Entity Framework\UnitOfWork.cs" />
     <Compile Include="Interfaces\IRepository.cs" />
     <Compile Include="Interfaces\ISpecification.cs" />
-    <Compile Include="Interfaces\IUnitOfWork.cs" />
     <Compile Include="LOG_POLIZA_CLIENTE.cs">
       <DependentUpon>DataModel.tt</DependentUpon>
     </Compile>
@@ -86,7 +84,10 @@
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repositories\ClientRepository.cs" />
-    <Compile Include="Repositories\IClientRepository.cs" />
+    <Compile Include="Repositories\CoverTypeRepository.cs" />
+    <Compile Include="Repositories\LogPolicyClientRepository.cs" />
+    <Compile Include="Repositories\PolicyRepository.cs" />
+    <Compile Include="Repositories\RiskTypeRepository.cs" />
     <Compile Include="TIPO_CUBRIMIENTO.cs">
       <DependentUpon>DataModel.tt</DependentUpon>
     </Compile>
