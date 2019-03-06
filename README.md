@@ -1,4 +1,4 @@
 # TestInsurance
 App Test Insurance 
 
-only for educational content implementind Domain Driven Design
+only for educational content implementing Domain Driven Design
