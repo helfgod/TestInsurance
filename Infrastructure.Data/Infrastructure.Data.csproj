@@ -85,6 +85,11 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repositories\ClientRepository.cs" />
     <Compile Include="Repositories\CoverTypeRepository.cs" />
+    <Compile Include="Repositories\IClientRepository.cs" />
+    <Compile Include="Repositories\ICoverTypeRepository.cs" />
+    <Compile Include="Repositories\ILogPolicyClientRepository.cs" />
+    <Compile Include="Repositories\IPolicyRepository.cs" />
+    <Compile Include="Repositories\IRiskTypeRepository.cs" />
     <Compile Include="Repositories\LogPolicyClientRepository.cs" />
     <Compile Include="Repositories\PolicyRepository.cs" />
     <Compile Include="Repositories\RiskTypeRepository.cs" />

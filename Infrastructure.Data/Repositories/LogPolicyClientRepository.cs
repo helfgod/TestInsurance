@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace Infrastructure.Data.Repositories
 {
-    public class LogPolicyClientRepository
+    public class LogPolicyClientRepository : ILogPolicyClientRepository
     {
         private readonly IRepository _repository;
 
@@ -45,7 +45,7 @@ namespace Infrastructure.Data.Repositories
         /// Actualiza un o varias polizas
         /// </summary>
         /// <param name="cliente"></param>
-        public void UpdateCliente(List<LogPolizaCliente> logPolizaClientes )
+        public void UpdateLogPolizaCliente(List<LogPolizaCliente> logPolizaClientes )
         {
             foreach (LogPolizaCliente item in logPolizaClientes)
             {

@@ -5,7 +5,7 @@ using Newtonsoft.Json;
 
 namespace Infrastructure.Data.Repositories
 {
-    public class ClientRepository
+    public class ClientRepository : IClientRepository
     {
         private readonly IRepository _repository;
 
@@ -50,7 +50,7 @@ namespace Infrastructure.Data.Repositories
         /// elimina un cliente 
         /// </summary>
         /// <param name="noDocumento"></param>
-        public void DeleteClient(string noDocumento)
+        public void DeleteCliente(string noDocumento)
         {
             _repository.Delete<Cliente>(x => x.NoDocumento == noDocumento);
             _repository.SaveChanges();

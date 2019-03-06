@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace Infrastructure.Data.Repositories
 {
-   public class RiskTypeRepository
+   public class RiskTypeRepository : IRiskTypeRepository
     {
         private readonly IRepository _repository;
         public RiskTypeRepository(IRepository repository)

@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace Infrastructure.Data.Repositories
 {
-    public class CoverTypeRepository
+    public class CoverTypeRepository : ICoverTypeRepository
     {
         private readonly IRepository _repository;
         public CoverTypeRepository(IRepository repository)
