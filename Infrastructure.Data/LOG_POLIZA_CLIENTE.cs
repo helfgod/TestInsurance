@@ -15,8 +15,8 @@ namespace Infrastructure.Data
     public partial class LOG_POLIZA_CLIENTE
     {
         public System.Guid ID_LPC { get; set; }
-        public System.Guid ID_POL { get; set; }
-        public System.Guid ID_CLI { get; set; }
+        public Nullable<System.Guid> ID_POL { get; set; }
+        public Nullable<System.Guid> ID_CLI { get; set; }
         public System.DateTime FECHA_PROCESO { get; set; }
         public bool ACTIVA { get; set; }
     

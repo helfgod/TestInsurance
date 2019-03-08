@@ -5,12 +5,12 @@
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
       <Diagram DiagramId="496b291b62a64b498aca3a7c76cb311e" Name="Diagram1">
-        <EntityTypeShape EntityType="InsuranceTestModel.CLIENTE" Width="1.5" PointX="3" PointY="5.5" IsExpanded="true" />
-        <EntityTypeShape EntityType="InsuranceTestModel.LOG_POLIZA_CLIENTE" Width="1.5" PointX="5.25" PointY="1.25" IsExpanded="true" />
-        <EntityTypeShape EntityType="InsuranceTestModel.TIPO_CUBRIMIENTO" Width="1.5" PointX="0.75" PointY="1.5" IsExpanded="true" />
-        <EntityTypeShape EntityType="InsuranceTestModel.TIPO_RIESGO" Width="1.5" PointX="0.75" PointY="5.5" IsExpanded="true" />
-        <AssociationConnector Association="InsuranceTestModel.FK_LOG_POLIZA_CLIENTE_Cliente_ID_CLI" ManuallyRouted="false" />
+        <EntityTypeShape EntityType="InsuranceTestModel.CLIENTE" Width="1.5" PointX="3" PointY="5.5" />
+        <EntityTypeShape EntityType="InsuranceTestModel.LOG_POLIZA_CLIENTE" Width="1.5" PointX="5.25" PointY="1.25" />
         <EntityTypeShape EntityType="InsuranceTestModel.POLIZA" Width="1.5" PointX="3" PointY="1" />
+        <EntityTypeShape EntityType="InsuranceTestModel.TIPO_CUBRIMIENTO" Width="1.5" PointX="0.75" PointY="5.5" />
+        <EntityTypeShape EntityType="InsuranceTestModel.TIPO_RIESGO" Width="1.5" PointX="0.75" PointY="1.625" />
+        <AssociationConnector Association="InsuranceTestModel.FK_LOG_POLIZA_CLIENTE_Cliente_ID_CLI" />
         <AssociationConnector Association="InsuranceTestModel.FK_LOG_POLIZA_CLIENTE_POLIZA_ID_POL" />
         <AssociationConnector Association="InsuranceTestModel.FK_POLIZA_TIPO_CUBRIMIENTO_ID_TIPO_CUBRIMIENTO" />
         <AssociationConnector Association="InsuranceTestModel.FK_POLIZA_TIPO_RIESGO_ID_TIPO_RIESGO" />

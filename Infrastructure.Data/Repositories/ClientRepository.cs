@@ -1,5 +1,6 @@
 ﻿
 using Domain.InsuranceTest.InsuranceTest;
+using Infrastructure.Data.Implementations;
 using Infrastructure.Data.Interfaces;
 using Newtonsoft.Json;
 
@@ -7,13 +8,24 @@ namespace Infrastructure.Data.Repositories
 {
     public class ClientRepository : IClientRepository
     {
-        private readonly IRepository _repository;
+        private readonly IRepository<CLIENTE> _repository;
+        IUnitOfWork unitOfWork;
 
-        public ClientRepository(IRepository repository)
+        public ClientRepository(IRepository<CLIENTE> repository):base()
         {
 
             _repository = repository;
+            this.unitOfWork = new UnitOfWork<InsuranceTestEntities>();
         }
+
+        public ClientRepository()
+        {
+            this.unitOfWork = new UnitOfWork<InsuranceTestEntities>();
+  
+        }
+
+
+
         /// <summary>
         /// obitene un cliente por Numero de documento
         /// </summary>
@@ -21,9 +33,11 @@ namespace Infrastructure.Data.Repositories
         /// <returns></returns>
         public Cliente GetClienteByNoDocumento(string noDocumento)
         {
-            string vCliente = JsonConvert.SerializeObject(_repository.Find<CLIENTE>(x => x.NO_DOCUMENTO == noDocumento));
+            IRepository<CLIENTE> client = unitOfWork.GetRepository<CLIENTE>();
 
-            return JsonConvert.DeserializeObject<Cliente>(vCliente);
+           // string vCliente = JsonConvert.SerializeObject(client.Find<CLIENTE>(x => x.NO_DOCUMENTO == noDocumento));
+
+            return null;// JsonConvert.DeserializeObject<Cliente>(vCliente);
         }
         /// <summary>
         /// Agrega un cliente
@@ -31,9 +45,10 @@ namespace Infrastructure.Data.Repositories
         /// <param name="cliente"></param>
         public void AddCliente(Cliente cliente)
         {
+            IRepository<CLIENTE> client = unitOfWork.GetRepository<CLIENTE>();
             var vCliente = JsonConvert.SerializeObject(cliente);
-            var response = _repository.Create(JsonConvert.DeserializeObject<CLIENTE>(vCliente));
-            _repository.SaveChanges();
+            //var response = client.Create(JsonConvert.DeserializeObject<CLIENTE>(vCliente));
+            //client.SaveChanges();
         }
         /// <summary>
         /// Actualiza un cliente
@@ -41,10 +56,12 @@ namespace Infrastructure.Data.Repositories
         /// <param name="cliente"></param>
         public void UpdateCliente(Cliente cliente)
         {
+            IRepository<CLIENTE> client = unitOfWork.GetRepository<CLIENTE>();
+
             var vCliente = JsonConvert.SerializeObject(cliente);
 
-            _repository.Update(JsonConvert.DeserializeObject<CLIENTE>(vCliente));
-            _repository.SaveChanges();
+            //client.Update(JsonConvert.DeserializeObject<CLIENTE>(vCliente));
+            //client.SaveChanges();
         }
         /// <summary>
         /// elimina un cliente 
@@ -52,8 +69,10 @@ namespace Infrastructure.Data.Repositories
         /// <param name="noDocumento"></param>
         public void DeleteCliente(string noDocumento)
         {
-            _repository.Delete<Cliente>(x => x.NoDocumento == noDocumento);
-            _repository.SaveChanges();
+            IRepository<CLIENTE> client = unitOfWork.GetRepository<CLIENTE>();
+
+            //client.Delete<Cliente>(x => x.NoDocumento == noDocumento);
+            //client.SaveChanges();
         }
 
     }

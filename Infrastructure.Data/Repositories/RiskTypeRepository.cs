@@ -11,8 +11,8 @@ namespace Infrastructure.Data.Repositories
 {
    public class RiskTypeRepository : IRiskTypeRepository
     {
-        private readonly IRepository _repository;
-        public RiskTypeRepository(IRepository repository)
+        private readonly IRepository<TIPO_RIESGO> _repository;
+        public RiskTypeRepository(IRepository<TIPO_RIESGO> repository)
         {
             _repository = repository;
         }
@@ -22,18 +22,19 @@ namespace Infrastructure.Data.Repositories
         /// <returns></returns>
         public List<TipoRiesgo> GetAllTipoRiesgo()
         {
-            var vTipoRiesgo = JsonConvert.SerializeObject(_repository.All<TIPO_CUBRIMIENTO>());
-            return JsonConvert.DeserializeObject<List<TipoRiesgo>>(vTipoRiesgo);
+            //var vTipoRiesgo = JsonConvert.SerializeObject(_repository.All<TIPO_CUBRIMIENTO>());
+            //return JsonConvert.DeserializeObject<List<TipoRiesgo>>(vTipoRiesgo);
+            return null;
         }
         /// <summary>
         /// Agrega un TipoRiesgo
         /// </summary>
         /// <param name="cliente"></param>
-        public void AddTipoRiesgo(TipoRiesgo TipoRiesgo)
+        public void AddTipoRiesgo(TipoRiesgo tipoRiesgo)
         {
-            var vTipoRiesgo = JsonConvert.SerializeObject(TipoRiesgo);
-            var response = _repository.Create(JsonConvert.DeserializeObject<TIPO_CUBRIMIENTO>(vTipoRiesgo));
-            _repository.SaveChanges();
+        //    var vTipoRiesgo = JsonConvert.SerializeObject(tipoRiesgo);
+        //    var response = _repository.Create(JsonConvert.DeserializeObject<TIPO_CUBRIMIENTO>(vTipoRiesgo));
+        //    _repository.SaveChanges();
         }
 
     }

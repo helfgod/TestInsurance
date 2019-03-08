@@ -1,10 +1,6 @@
 ﻿using Domain.InsuranceTest.InsuranceTest;
-using Infrastructure.Data.Repositories;
+using Service.InsuranceTest.Service;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Net;
-using System.Net.Http;
 using System.Web.Http;
 using System.Web.Http.Cors;
 
@@ -13,11 +9,11 @@ namespace TestInsurance.Controllers
     [RoutePrefix("api/Policy")]
     public class PolicyController : ApiController
     {
-        private readonly IPolicyRepository _repositorioPoliza;
+        private readonly IPolicyService _servicioPoliza;
 
-        public PolicyController(IPolicyRepository repositorioPoliza)
+        public PolicyController(IPolicyService servicioPoliza)
         {
-            _repositorioPoliza = repositorioPoliza;
+            _servicioPoliza = servicioPoliza;
         }
 
         [HttpPost]
@@ -27,7 +23,7 @@ namespace TestInsurance.Controllers
         {
             try
             {
-                _repositorioPoliza.AddPoliza(poliza);
+                _servicioPoliza.AddPoliza(poliza);
 
                 return Ok();
             }
@@ -45,7 +41,7 @@ namespace TestInsurance.Controllers
             try
             {
 
-                _repositorioPoliza.UpdatePoliza(poliza);
+                _servicioPoliza.UpdatePoliza(poliza);
 
 
                 return Ok();
@@ -64,7 +60,7 @@ namespace TestInsurance.Controllers
         {
             try
             {
-                var response = _repositorioPoliza.GetPolizaByNombre(nombre);
+                var response = _servicioPoliza.GetPolizaByNombre(nombre);
                 return Ok(response);
             }
             catch (Exception ex)

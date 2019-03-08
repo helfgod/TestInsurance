@@ -11,8 +11,8 @@ namespace Infrastructure.Data.Repositories
 {
     public class CoverTypeRepository : ICoverTypeRepository
     {
-        private readonly IRepository _repository;
-        public CoverTypeRepository(IRepository repository)
+        private readonly IRepository<TIPO_CUBRIMIENTO> _repository;
+        public CoverTypeRepository(IRepository<TIPO_CUBRIMIENTO> repository)
         {
             _repository = repository;
         }
@@ -22,8 +22,9 @@ namespace Infrastructure.Data.Repositories
         /// <returns></returns>
         public List<TipoCubrimiento> GetAllTipoCubrimiento()
         {
-            var vTipoCubrimiento = JsonConvert.SerializeObject(_repository.All<TIPO_CUBRIMIENTO>());
-            return JsonConvert.DeserializeObject<List<TipoCubrimiento>>(vTipoCubrimiento);
+            //var vTipoCubrimiento = JsonConvert.SerializeObject(_repository.All<TIPO_CUBRIMIENTO>());
+            //return JsonConvert.DeserializeObject<List<TipoCubrimiento>>(vTipoCubrimiento);
+            return null;
         }
         /// <summary>
         /// Agrega un TipoCubrimiento
@@ -31,9 +32,9 @@ namespace Infrastructure.Data.Repositories
         /// <param name="cliente"></param>
         public void AddTipoCubrimiento(TipoCubrimiento tipoCubrimiento)
         {
-            var vTipoCubrimiento = JsonConvert.SerializeObject(tipoCubrimiento);
-            var response = _repository.Create(JsonConvert.DeserializeObject<TIPO_CUBRIMIENTO>(vTipoCubrimiento));
-            _repository.SaveChanges(); 
+            //var vTipoCubrimiento = JsonConvert.SerializeObject(tipoCubrimiento);
+            //var response = _repository.Create(JsonConvert.DeserializeObject<TIPO_CUBRIMIENTO>(vTipoCubrimiento));
+            //_repository.SaveChanges(); 
         }
 
     }

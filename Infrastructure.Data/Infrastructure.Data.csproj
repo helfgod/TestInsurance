@@ -73,9 +73,10 @@
     </Compile>
     <Compile Include="Helper\Utility.cs" />
     <Compile Include="Implementations\Entity Framework\Repository.cs" />
-    <Compile Include="Implementations\Entity Framework\Specification.cs" />
+    <Compile Include="Implementations\UnitOfWork.cs" />
     <Compile Include="Interfaces\IRepository.cs" />
     <Compile Include="Interfaces\ISpecification.cs" />
+    <Compile Include="Interfaces\IUnitOfWork.cs" />
     <Compile Include="LOG_POLIZA_CLIENTE.cs">
       <DependentUpon>DataModel.tt</DependentUpon>
     </Compile>

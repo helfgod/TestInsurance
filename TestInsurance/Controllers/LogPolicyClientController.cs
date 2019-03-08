@@ -1,5 +1,6 @@
 ﻿using Domain.InsuranceTest.InsuranceTest;
 using Infrastructure.Data.Repositories;
+
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -13,12 +14,12 @@ namespace TestInsurance.Controllers
     [RoutePrefix("api/LogPolicyClient")]
     public class LogPolicyClientController : ApiController
     {
-        private readonly ILogPolicyClientRepository _repositorioLogPolizaCliente;
+        private readonly ILogPolicyClientRepository _servicioLogPolizaCliente;
 
 
-        public LogPolicyClientController(ILogPolicyClientRepository repositorioLogPolizaCliente)
+        public LogPolicyClientController(ILogPolicyClientRepository servicioLogPolizaCliente)
         {
-            _repositorioLogPolizaCliente = repositorioLogPolizaCliente;
+            _servicioLogPolizaCliente = servicioLogPolizaCliente;
         }
      
         [HttpPost]
@@ -28,7 +29,7 @@ namespace TestInsurance.Controllers
         {
             try
             {
-                _repositorioLogPolizaCliente.AddLogPolizaCliente(logPolizaCliente);
+                _servicioLogPolizaCliente.AddLogPolizaCliente(logPolizaCliente);
 
                 return Ok();
             }
@@ -46,7 +47,7 @@ namespace TestInsurance.Controllers
             try
             {
 
-                _repositorioLogPolizaCliente.UpdateLogPolizaCliente(logPolizaCliente);
+                _servicioLogPolizaCliente.UpdateLogPolizaCliente(logPolizaCliente);
 
 
                 return Ok();
@@ -59,13 +60,13 @@ namespace TestInsurance.Controllers
         }
 
         [HttpGet]
-        [Route("LogPolicyClient/{noDocumento}")]
+        [Route("GetClient/{noDocumento}")]
         [EnableCors("*", "*", "*")]
         public IHttpActionResult GetClient(string noDocumento)
         {
             try
             {
-                var response = _repositorioLogPolizaCliente.GetLogPolizaClienteByNoDocumento(noDocumento);
+                var response = _servicioLogPolizaCliente.GetLogPolizaClienteByNoDocumento(noDocumento);
                 return Ok(response);
             }
             catch (Exception ex)

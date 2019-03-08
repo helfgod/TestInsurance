@@ -1,128 +1,85 @@
 ﻿using Infrastructure.Data.Interfaces;
 using System;
-using System.Data;
+using System.Collections.Generic;
 using System.Data.Entity;
-using System.Data.Entity.Core;
-using System.Data.SqlClient;
 using System.Linq;
 using System.Linq.Expressions;
 
 namespace Infrastructure.Data.Implementations.Entity_Framework
 {
-    public class Repository : IRepository
+    public class Repository<TEntity> : IRepository<TEntity> where TEntity : class
     {
-        DbContext Context;
 
-        public Repository()
-        {
-            Context = new InsuranceTestEntities();
-
-        }
+        internal DbContext context;
+        internal DbSet<TEntity> dbSet;
 
         public Repository(DbContext context)
         {
-            Context = context;
-
+            this.context = context;
+            this.dbSet = context.Set<TEntity>();
         }
 
-        public void CommitChanges()
+        public virtual IEnumerable<TEntity> Get(
+            Expression<Func<TEntity, bool>> filter = null,
+            Func<IQueryable<TEntity>, IOrderedQueryable<TEntity>> orderBy = null,
+            string includeProperties = "")
         {
-            Context.SaveChanges();
-        }
+            IQueryable<TEntity> query = dbSet;
 
-        public T Single<T>(Expression<Func<T, bool>> expression) where T : class
-        {
-            return All<T>().FirstOrDefault(expression);
-        }
-
-        public IQueryable<T> All<T>() where T : class
-        {
-            return Context.Set<T>().AsQueryable();
-        }
-
-        public virtual IQueryable<T> Filter<T>(Expression<Func<T, bool>> predicate) where T : class
-        {
-            return Context.Set<T>().Where<T>(predicate).AsQueryable<T>();
-        }
-
-        public virtual IQueryable<T> Filter<T>(Expression<Func<T, bool>> filter, out int total, int index = 0, int size = 50) where T : class
-        {
-            int skipCount = index * size;
-            var _resetSet = filter != null ? Context.Set<T>().Where<T>(filter).AsQueryable() : Context.Set<T>().AsQueryable();
-            _resetSet = skipCount == 0 ? _resetSet.Take(size) : _resetSet.Skip(skipCount).Take(size);
-            total = _resetSet.Count();
-            return _resetSet.AsQueryable();
-        }
-
-        public virtual T Create<T>(T TObject) where T : class
-        {
-
-            var newEntry = Context.Set<T>().Add(TObject);
-            Context.SaveChanges();
-            return newEntry;
-        }
-
-        public virtual int Delete<T>(T TObject) where T : class
-        {
-            Context.Set<T>().Remove(TObject);
-            return Context.SaveChanges();
-        }
-
-        public virtual int Update<T>(T TObject) where T : class
-        {
-            try
+            if (filter != null)
             {
-                var entry = Context.Entry(TObject);
-                Context.Set<T>().Attach(TObject);
-                entry.State = EntityState.Modified;
-                return Context.SaveChanges();
+                query = query.Where(filter);
             }
-            catch (OptimisticConcurrencyException ex)
+
+            foreach (var includeProperty in includeProperties.Split
+                (new char[] { ',' }, StringSplitOptions.RemoveEmptyEntries))
             {
-                throw ex;
+                query = query.Include(includeProperty);
+            }
+
+            if (orderBy != null)
+            {
+                return orderBy(query).ToList();
+            }
+            else
+            {
+                return query.ToList();
             }
         }
-
-        public virtual int Delete<T>(Expression<Func<T, bool>> predicate) where T : class
+        public virtual TEntity GetByID(params object[] id)
         {
-            var objects = Filter<T>(predicate);
-            foreach (var obj in objects)
-                Context.Set<T>().Remove(obj);
-            return Context.SaveChanges();
+            return dbSet.Find(id);
+        }
+        public virtual TEntity GetByID(object id)
+        {
+            return dbSet.Find(id);
         }
 
-        public bool Contains<T>(Expression<Func<T, bool>> predicate) where T : class
+        public virtual void Insert(TEntity entity)
         {
-            return Context.Set<T>().Count<T>(predicate) > 0;
+            dbSet.Add(entity);
         }
 
-        public virtual T Find<T>(params object[] keys) where T : class
+        public virtual void Delete(object id)
         {
-            return (T)Context.Set<T>().Find(keys);
+            TEntity entityToDelete = dbSet.Find(id);
+            Delete(entityToDelete);
         }
 
-        public virtual T Find<T>(Expression<Func<T, bool>> predicate) where T : class
+        public virtual void Delete(TEntity entityToDelete)
         {
-            return Context.Set<T>().FirstOrDefault<T>(predicate);
+            if (context.Entry(entityToDelete).State == EntityState.Detached)
+            {
+                dbSet.Attach(entityToDelete);
+            }
+            dbSet.Remove(entityToDelete);
         }
 
-
-        public virtual void ExecuteProcedure(String procedureCommand, params SqlParameter[] sqlParams)
+        public virtual void Update(TEntity entityToUpdate)
         {
-            Context.Database.ExecuteSqlCommand(procedureCommand, sqlParams);
-
-        }
-
-
-        public virtual void SaveChanges()
-        {
-            Context.SaveChanges();
-        }
-
-        public void Dispose()
-        {
-            if (Context != null)
-                Context.Dispose();
+            dbSet.Attach(entityToUpdate);
+            context.Entry(entityToUpdate).State = EntityState.Modified;
         }
     }
 }
+

@@ -11,9 +11,9 @@ namespace Infrastructure.Data.Repositories
 {
     public class PolicyRepository : IPolicyRepository
     {
-        private readonly IRepository _repository;
+        private readonly IRepository<POLIZA> _repository;
 
-        public PolicyRepository(IRepository repository)
+        public PolicyRepository(IRepository<POLIZA> repository)
         {
             _repository = repository;
         }
@@ -25,30 +25,31 @@ namespace Infrastructure.Data.Repositories
         /// <returns></returns>
         public Poliza GetPolizaByNombre(string nombre)
         {
-            string vPoliza = JsonConvert.SerializeObject(_repository.Find<POLIZA>(x => x.NOMBRE == nombre));
+            //string vPoliza = JsonConvert.SerializeObject(_repository.Find<POLIZA>(x => x.NOMBRE == nombre));
 
-            return JsonConvert.DeserializeObject<Poliza>(vPoliza);
+            //return JsonConvert.DeserializeObject<Poliza>(vPoliza);
+            return null;
         }
         /// <summary>
         /// Agrega un Poliza
         /// </summary>
         /// <param name="Poliza"></param>
-        public void AddPoliza(Poliza Poliza)
+        public void AddPoliza(Poliza poliza)
         {
-            var vPoliza = JsonConvert.SerializeObject(Poliza);
-            var response = _repository.Create(JsonConvert.DeserializeObject<POLIZA>(vPoliza));
-            _repository.SaveChanges();
+            //var vPoliza = JsonConvert.SerializeObject(poliza);
+            //var response = _repository.Create(JsonConvert.DeserializeObject<POLIZA>(vPoliza));
+            //_repository.SaveChanges();
         }
         /// <summary>
         /// Actualiza un Poliza
         /// </summary>
         /// <param name="Poliza"></param>
-        public void UpdatePoliza(Poliza Poliza)
+        public void UpdatePoliza(Poliza poliza)
         {
-            var vPoliza = JsonConvert.SerializeObject(Poliza);
+            //var vPoliza = JsonConvert.SerializeObject(poliza);
 
-            _repository.Update(JsonConvert.DeserializeObject<POLIZA>(vPoliza));
-            _repository.SaveChanges();
+            //_repository.Update(JsonConvert.DeserializeObject<POLIZA>(vPoliza));
+            //_repository.SaveChanges();
         }
         /// <summary>
         /// elimina un Poliza 
@@ -56,8 +57,8 @@ namespace Infrastructure.Data.Repositories
         /// <param name="noDocumento"></param>
         public void DeletePoliza(string nombre)
         {
-            _repository.Delete<POLIZA>(x => x.NOMBRE == nombre);
-            _repository.SaveChanges();
+            //_repository.Delete<POLIZA>(x => x.NOMBRE == nombre);
+            //_repository.SaveChanges();
         }
     }
 }
